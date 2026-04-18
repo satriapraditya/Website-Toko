@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toko Sutoro — Sembako & Kelontong</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     PUBLIC SITE WRAPPER
+══════════════════════════════════════════ -->
+<div id="publicSite">
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand" onclick="scrollTop()">
+        <div class="brand-icon"><i class="fas fa-store-alt"></i></div>
+        <div class="brand-text">
+          <span class="brand-name">Toko Sutoro</span>
+          <span class="brand-tagline">Sembako & Kelontong</span>
+        </div>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#beranda" class="nav-link active">Beranda</a>
+        <a href="#produk" class="nav-link">Produk</a>
+        <a href="#tentang" class="nav-link">Tentang</a>
+        <a href="#galeri" class="nav-link">Galeri</a>
+        <a href="#kontak" class="nav-link">Kontak</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-admin" onclick="bukaAdmin()"><i class="fas fa-lock"></i> Admin</button>
+        <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="beranda">
+    <div class="hero-bg">
+      <div class="hero-circle c1"></div>
+      <div class="hero-circle c2"></div>
+      <div class="hero-circle c3"></div>
+      <div class="hero-dots"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-leaf"></i> Terpercaya Sejak 2016</div>
+      <h1 class="hero-title">Belanja <em>Sembako</em><br>Lengkap & Hemat</h1>
+      <div class="hero-cta">
+        <a href="#produk" class="btn-hero-primary"><i class="fas fa-shopping-basket"></i> Lihat Produk</a>
+        <a href="#kontak" class="btn-hero-outline"><i class="fas fa-phone"></i> Hubungi Kami</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="hstat-num" id="heroJumlahProduk">50+</span><span class="hstat-label">Jenis Produk</span></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><span class="hstat-num">10</span><span class="hstat-label">Tahun Berdiri</span></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><span class="hstat-num">1.000+</span><span class="hstat-label">Pelanggan Setia</span></div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-img-frame">
+        <img src="c:\Users\Lenovo\Downloads\Beranda.jpg" alt="Toko Sutoro" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="img-placeholder" style="display:none"><i class="fas fa-store"></i><span>Foto Toko Sutoro</span><small>Ganti dengan: images/hero.jpg</small></div>
+      </div>
+      <div class="hero-badge-float b1"><i class="fas fa-check-circle"></i> Kualitas Terjamin</div>
+      <div class="hero-badge-float b2"><i class="fas fa-tag"></i> Harga Terjangkau</div>
+    </div>
+  </section>
+
+  <!-- ── KEUNGGULAN ── -->
+  <section class="keunggulan">
+    <div class="container">
+      <div class="keunggulan-grid">
+        <div class="kitem">
+          <div class="kitem-icon"><i class="fas fa-medal"></i></div>
+          <h3>Produk Berkualitas</h3>
+          <p>Semua produk dipilih & diambil langsung dari distributor resmi & terpercaya</p>
+        </div>
+        <div class="kitem">
+          <div class="kitem-icon"><i class="fas fa-tags"></i></div>
+          <h3>Harga Bersaing</h3>
+          <p>Harga yang kompetitif, cocok untuk kebutuhan rumah tangga sehari-hari</p>
+        </div>
+        <div class="kitem">
+          <div class="kitem-icon"><i class="fas fa-clock"></i></div>
+          <h3>Buka Setiap Hari</h3>
+          <p>siap melayani konsumen dari pagi hingga malam setiap harinya</p>
+        </div>
+        <div class="kitem">
+          <div class="kitem-icon"><i class="fas fa-heart"></i></div>
+          <h3>Pelayanan Ramah</h3>
+          <p>kami hadir untuk memberikan pelayanan terbaik kepada konsumen</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRODUK ── -->
+  <section class="section-produk" id="produk">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Produk Toko</span>
+        <h2 class="section-title">Temukan Kebutuhan<br><em>Rumah tangga anda disini</em></h2>
+        <p class="section-desc">Tersedia berbagai produk sembako dan kebutuhan sehari-hari dengan harga terjangkau & kualitas terjamin</p>
+      </div>
+
+      <!-- Filter Kategori -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-kat="semua" onclick="filterKategori(this)">Semua</button>
+        <button class="filter-btn" data-kat="Beras & Gandum" onclick="filterKategori(this)">🌾 Beras</button>
+        <button class="filter-btn" data-kat="Minyak & Lemak" onclick="filterKategori(this)">🫙 Minyak</button>
+        <button class="filter-btn" data-kat="Gula & Garam" onclick="filterKategori(this)">🧂 Gula & Garam</button>
+        <button class="filter-btn" data-kat="Minuman" onclick="filterKategori(this)">☕ Minuman</button>
+        <button class="filter-btn" data-kat="Snack & Makanan" onclick="filterKategori(this)">🍜 Makanan</button>
+        <button class="filter-btn" data-kat="Sabun & Detergen" onclick="filterKategori(this)">🧼 Sabun</button>
+        <button class="filter-btn" data-kat="Lainnya" onclick="filterKategori(this)">📦 Lainnya</button>
+      </div>
+
+      <!-- Search -->
+      <div class="produk-search">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchPublik" placeholder="Cari produk sembako..." oninput="renderProdukPublik()"/>
+      </div>
+
+      <!-- Grid Produk -->
+      <div class="produk-grid" id="produkGrid"></div>
+
+      <div class="produk-empty" id="produkEmpty" style="display:none">
+        <i class="fas fa-box-open"></i>
+        <p>Produk tidak ditemukan</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TENTANG ── -->
+  <section class="section-tentang" id="tentang">
+    <div class="container">
+      <div class="tentang-layout">
+        <div class="tentang-images">
+          <div class="timg-main">
+            <img src="c:\Users\Lenovo\Downloads\TampakDepan.jpeg" alt="Toko Sutoro" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="img-placeholder" style="display:none"><i class="fas fa-store"></i><span>Foto Toko 1</span><small>images/toko1.jpg</small></div>
+          </div>
+          <div class="timg-grid">
+            <div class="timg-small">
+              <img src="c:\Users\Lenovo\Downloads\Tampak Kanan.jpg" alt="Suasana Toko" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+              <div class="img-placeholder small" style="display:none"><i class="fas fa-image"></i><span>images/toko2.jpg</span></div>
+            </div>
+            <div class="timg-small">
+              <img src="c:\Users\Lenovo\Downloads\Tampak Kiri.jpg" alt="Produk" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+              <div class="img-placeholder small" style="display:none"><i class="fas fa-image"></i><span>images/toko3.jpg</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="tentang-content">
+          <span class="section-label">Tentang Kami</span>
+          <h2 class="section-title">Toko Kelontong<br><em>Keluarga Sutoro</em></h2>
+          <p id="deskripsiToko" class="tentang-desc">Toko Sutoro adalah toko kelontong dan sembako milik keluarga yang terletak di Desa Piasa Wetan, Kecamatan Susukan, Kabupaten Banjarnagera. Terletak di pertigaan yang ramai dilewati pengguna jalan yang menyebabkan lokasinya sangat strategis. Toko ini telah melayani masyarakat sekitar sejak tahun 2016 sampai sekarang. Kami hadir dengan komitmen untuk menyediakan kebutuhan sehari-hari dengan harga terjangkau dan kualitas terjamin. Belanja tenang, hati senang, dompet aman.</p>
+          <div class="jam-buka">
+            <div class="jam-header"><i class="fas fa-clock"></i> Jam Operasional</div>
+            <div class="jam-list" id="jamList">
+              <div class="jam-item"><span>Senin - Sabtu</span><span class="jam-time">06.00 - 22.00 WIB</span></div>
+              <div class="jam-item"><span>Minggu & Hari Raya</span><span class="jam-time">06.00 - 24.00 WIB</span></div>
+            </div>
+          </div>
+          <a href="#kontak" class="btn-hero-primary" style="display:inline-flex;margin-top:8px"><i class="fas fa-map-marker-alt"></i> Temukan Kami</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALERI ── -->
+  <section class="section-galeri" id="galeri">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Galeri Foto</span>
+        <h2 class="section-title">Suasana <em>Toko</em></h2>
+        <p class="section-desc">Lihat koleksi foto toko dan produk-produk unggulan kami</p>
+      </div>
+      <div class="galeri-grid" id="galeriGrid">
+        <!-- Galeri akan di-render dari JS / bisa edit manual -->
+        <div class="galeri-item gi-large">
+          <img src="c:\Users\Lenovo\Downloads\Keadaan Toko.jpeg" alt="Galeri 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-placeholder" style="display:none"><i class="fas fa-image"></i><span>Foto Galeri 1</span><small>images/galeri1.jpg</small></div>
+          <div class="galeri-overlay"><span>Keadaan Toko</span></div>
+        </div>
+        <div class="galeri-item">
+          <img src="c:\Users\Lenovo\Downloads\Produk Segar.jpeg" alt="Galeri 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-placeholder" style="display:none"><i class="fas fa-image"></i><span>images/galeri2.jpg</span></div>
+          <div class="galeri-overlay"><span>Produk Segar</span></div>
+        </div>
+        <div class="galeri-item">
+          <img src="c:\Users\Lenovo\Downloads\Produk Segar (2).jpeg" alt="Galeri 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-placeholder" style="display:none"><i class="fas fa-image"></i><span>images/galeri3.jpg</span></div>
+          <div class="galeri-overlay"><span>Produk Segar</span></div>
+        </div>
+        <div class="galeri-item">
+          <img src="c:\Users\Lenovo\Downloads\Rak Produk.jpeg" alt="Galeri 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-placeholder" style="display:none"><i class="fas fa-image"></i><span>images/galeri4.jpg</span></div>
+          <div class="galeri-overlay"><span>Rak Produk</span></div>
+        </div>
+        <div class="galeri-item">
+          <img src="c:\Users\Lenovo\Downloads\Pelayanan.jpeg" alt="Galeri 5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-placeholder" style="display:none"><i class="fas fa-image"></i><span>images/galeri5.jpg</span></div>
+          <div class="galeri-overlay"><span>Pelayanan</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── KONTAK ── -->
+  <section class="section-kontak" id="kontak">
+    <div class="container">
+      <div class="section-header light">
+        <span class="section-label">Hubungi Kami</span>
+        <h2 class="section-title" style="color:#fff">Temukan & Hubungi<br><em>Toko Sutoro</em></h2>
+      </div>
+      <div class="kontak-layout">
+        <div class="kontak-info">
+          <div class="kinfo-card">
+            <div class="kinfo-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <h4>Alamat</h4>
+              <p id="alamatToko">Karajan, Desa Piasa Wetan, Kec. Susukan, Kab. Banjarnegara, Jawa Tengah, 53475</p>
+            </div>
+          </div>
+          <div class="kinfo-card">
+            <div class="kinfo-icon"><i class="fas fa-phone-alt"></i></div>
+            <div>
+              <h4>Telepon / WhatsApp</h4>
+              <p id="teleponToko">+62 812-3456-7890</p>
+              <a id="waLink" href="https://wa.me/6281234567890" target="_blank" class="wa-btn"><i class="fab fa-whatsapp"></i> Chat WhatsApp</a>
+            </div>
+          </div>
+          <div class="kinfo-card">
+            <div class="kinfo-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <h4>Jam Buka</h4>
+              <p>Senin - Sabtu: 06.00 - 22.00 WIB</p>
+              <p>Minggu: 06.00 - 24.00 WIB</p>
+            </div>
+          </div>
+          <div class="kinfo-card">
+            <div class="kinfo-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <h4>Email</h4>
+              <p id="emailToko">tokosutoro@gmail.com</p>
+            </div>
+          </div>
+        </div>
+        <div class="kontak-map">
+          <div class="map-frame">
+            <div class="map-placeholder">
+              <i class="fas fa-map-marked-alt"></i>
+              <p>Peta Lokasi</p>
+              <a id="gmapsLink" href="https://maps.app.goo.gl/VUhWu3qZkjnnkPbU8" target="_blank" class="btn-hero-outline" style="margin-top:12px;font-size:.85rem"><i class="fas fa-directions"></i> Buka di Google Maps</a>
+            </div>
+          </div>
+          <div class="sosmed-wrap">
+            <span>Ikuti Kami:</span>
+            <a href="https://facebook.com/tokosutoro" class="sosmed-btn fb" target="_blank"><i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://instagram.com/tokosutoro" class="sosmed-btn ig" target="_blank"><i class="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="brand-icon small"><i class="fas fa-store-alt"></i></div>
+        <div>
+          <span class="brand-name" style="font-size:1.2rem">Toko Sutoro</span>
+          <span class="brand-tagline" style="color:rgba(255,255,255,.5)">Sembako & Kelontong</span>
+        </div>
+      </div>
+      <p class="footer-copy">© 2025 Toko Sutoro. Belanja tenang, hati senang, dompet aman.</p>
+      <button class="btn-admin footer-admin" onclick="bukaAdmin()"><i class="fas fa-cog"></i> Panel Admin</button>
+    </div>
+  </footer>
+
+</div><!-- /publicSite -->
+
+
+<!-- ══════════════════════════════════════════
+     ADMIN PANEL
+══════════════════════════════════════════ -->
+<div id="adminPanel" style="display:none">
+
+  <!-- SIDEBAR -->
+  <aside class="adm-sidebar" id="admSidebar">
+    <div class="adm-sidebar-head">
+      <div class="brand-icon"><i class="fas fa-store-alt"></i></div>
+      <div>
+        <span class="brand-name">Sutoro</span>
+        <span class="brand-tagline">Panel Admin</span>
+      </div>
+    </div>
+    <nav class="adm-nav">
+      <a class="adm-nav-item active" data-adm="dashboard" onclick="admPage('dashboard')"><i class="fas fa-chart-pie"></i><span>Dashboard</span></a>
+      <a class="adm-nav-item" data-adm="produk" onclick="admPage('produk')"><i class="fas fa-boxes-stacked"></i><span>Produk</span></a>
+      <a class="adm-nav-item" data-adm="kasir" onclick="admPage('kasir')"><i class="fas fa-cash-register"></i><span>Kasir</span></a>
+      <a class="adm-nav-item" data-adm="riwayat" onclick="admPage('riwayat')"><i class="fas fa-receipt"></i><span>Riwayat</span></a>
+      <a class="adm-nav-item" data-adm="laporan" onclick="admPage('laporan')"><i class="fas fa-chart-bar"></i><span>Laporan</span></a>
+    </nav>
+    <div class="adm-sidebar-foot">
+      <div class="adm-user"><div class="adm-avatar"><i class="fas fa-user-tie"></i></div><div><span class="adm-uname">Admin</span><span class="adm-urole">Pemilik Toko</span></div></div>
+    </div>
+  </aside>
+
+  <!-- MAIN ADMIN -->
+  <div class="adm-main">
+    <header class="adm-topbar">
+      <button class="adm-hamburger" onclick="toggleAdmSidebar()"><i class="fas fa-bars"></i></button>
+      <div class="adm-topbar-title" id="admTopTitle">Dashboard</div>
+      <div class="adm-topbar-right">
+        <div class="adm-date" id="admDate"></div>
+        <button class="btn-logout-top" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Log Out</button>
+      </div>
+    </header>
+
+    <!-- ── ADM PAGE: DASHBOARD ── -->
+    <div class="adm-page active" id="adm-dashboard">
+      <div class="adm-page-header"><h1>Ringkasan aktivitas toko hari ini</h1></div>
+      <div class="adm-stats">
+        <div class="adm-stat blue"><div class="adm-stat-icon"><i class="fas fa-boxes"></i></div><div><span class="adm-stat-val" id="dsProduk">0</span><span class="adm-stat-lbl">Total Produk</span></div></div>
+        <div class="adm-stat teal"><div class="adm-stat-icon"><i class="fas fa-receipt"></i></div><div><span class="adm-stat-val" id="dsTrx">0</span><span class="adm-stat-lbl">Transaksi Hari Ini</span></div></div>
+        <div class="adm-stat navy"><div class="adm-stat-icon"><i class="fas fa-coins"></i></div><div><span class="adm-stat-val" id="dsPendapatan">Rp 0</span><span class="adm-stat-lbl">Pendapatan Hari Ini</span></div></div>
+        <div class="adm-stat warn"><div class="adm-stat-icon"><i class="fas fa-exclamation-triangle"></i></div><div><span class="adm-stat-val" id="dsStokRendah">0</span><span class="adm-stat-lbl">Stok Menipis</span></div></div>
+      </div>
+      <div class="adm-dash-row">
+        <div class="adm-card">
+          <div class="adm-card-head"><h3>⚠️ Stok Rendah</h3></div>
+          <div id="dsStokList"></div>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-head"><h3>🕐 Transaksi Terbaru</h3></div>
+          <div id="dsTrxList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ADM PAGE: PRODUK ── -->
+    <div class="adm-page" id="adm-produk">
+      <div class="adm-page-header flex">
+        <div><h1>Tambah, edit, dan kelola stok produk toko</h1></div>
+        <button class="btn-primary" onclick="openProdukModal()"><i class="fas fa-plus"></i> Tambah Produk</button>
+      </div>
+      <div class="adm-card">
+        <div class="tbl-toolbar">
+          <div class="srch-wrap"><i class="fas fa-search"></i><input type="text" id="admSrchProduk" placeholder="Cari nama produk..." oninput="renderAdmProduk()"/></div>
+          <select id="admFltKat" onchange="renderAdmProduk()">
+            <option value="">Semua Kategori</option>
+            <option>Beras & Gandum</option><option>Minyak & Lemak</option><option>Gula & Garam</option>
+            <option>Minuman</option><option>Snack & Makanan</option><option>Sabun & Detergen</option><option>Lainnya</option>
+          </select>
+        </div>
+        <div class="tbl-wrap"><table class="adm-tbl"><thead><tr><th>#</th><th>Gambar</th><th>Nama Produk</th><th>Kategori</th><th>H.Beli</th><th>H.Jual</th><th>Stok</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="admProdukBody"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ── ADM PAGE: KASIR ── -->
+    <div class="adm-page" id="adm-kasir">
+      <div class="adm-page-header"><h1>Proses penjualan barang kepada pelanggan</h1></div>
+      <div class="kasir-layout">
+        <div class="adm-card kasir-left">
+          <h3>Pilih Produk</h3>
+          <div class="srch-wrap mb12"><i class="fas fa-search"></i><input type="text" id="kasirSrch" placeholder="Cari produk..." oninput="renderKasirProduk()"/></div>
+          <div class="kasir-grid" id="kasirGrid"></div>
+        </div>
+        <div class="adm-card kasir-right">
+          <h3><i class="fas fa-shopping-cart"></i> Keranjang</h3>
+          <div class="keranjang" id="keranjangList"></div>
+          <div class="keranjang-sum">
+            <div class="ksum-row"><span>Subtotal</span><span id="kSubtotal">Rp 0</span></div>
+            <div class="ksum-row"><span>Diskon (%)</span><input type="number" id="kDiskon" min="0" max="100" value="0" oninput="hitungTotal()"/></div>
+            <div class="ksum-row ksum-total"><span>TOTAL</span><span id="kTotal">Rp 0</span></div>
+            <div class="ksum-row"><span>Bayar (Rp)</span><input type="number" id="kBayar" placeholder="0" oninput="hitungKembalian()"/></div>
+            <div class="ksum-row"><span>Kembalian</span><span id="kKembalian">Rp 0</span></div>
+            <button class="btn-primary full mt12" onclick="prosesTransaksi()"><i class="fas fa-check-circle"></i> Proses Transaksi</button>
+            <button class="btn-outline full mt6" onclick="clearKeranjang()"><i class="fas fa-trash"></i> Kosongkan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ADM PAGE: RIWAYAT ── -->
+    <div class="adm-page" id="adm-riwayat">
+      <div class="adm-page-header flex">
+        <div><h1>Semua catatan penjualan</h1></div>
+        <button class="btn-outline" onclick="exportCSV()"><i class="fas fa-file-export"></i> Export CSV</button>
+      </div>
+      <div class="adm-card">
+        <div class="tbl-toolbar">
+          <div class="srch-wrap"><i class="fas fa-search"></i><input type="text" id="riwSrch" placeholder="Cari ID transaksi..." oninput="renderRiwayat()"/></div>
+          <input type="date" id="riwDate" onchange="renderRiwayat()"/>
+        </div>
+        <div class="tbl-wrap"><table class="adm-tbl"><thead><tr><th>ID Transaksi</th><th>Tanggal</th><th>Items</th><th>Total</th><th>Bayar</th><th>Kembalian</th><th>Detail</th></tr></thead><tbody id="riwayatBody"></tbody></table></div>
+      </div>
+    </div>
+
+
+
+    <!-- ── ADM PAGE: LAPORAN ── -->
+    <div class="adm-page" id="adm-laporan">
+      <div class="adm-page-header"><h1>Ringkasan pendapatan dan penjualan</h1></div>
+      <div class="adm-stats">
+        <div class="adm-stat blue"><div class="adm-stat-icon"><i class="fas fa-money-bill-wave"></i></div><div><span class="adm-stat-val" id="lapTotal">Rp 0</span><span class="adm-stat-lbl">Total Pendapatan</span></div></div>
+        <div class="adm-stat teal"><div class="adm-stat-icon"><i class="fas fa-receipt"></i></div><div><span class="adm-stat-val" id="lapTrx">0</span><span class="adm-stat-lbl">Total Transaksi</span></div></div>
+        <div class="adm-stat navy"><div class="adm-stat-icon"><i class="fas fa-chart-line"></i></div><div><span class="adm-stat-val" id="lapRata">Rp 0</span><span class="adm-stat-lbl">Rata-rata/Transaksi</span></div></div>
+      </div>
+      <div class="adm-card mt16">
+        <div class="adm-card-head"><h3>Produk Terlaris</h3></div>
+        <div class="tbl-wrap"><table class="adm-tbl"><thead><tr><th>Produk</th><th>Qty Terjual</th><th>Pendapatan</th></tr></thead><tbody id="lapProdukBody"></tbody></table></div>
+      </div>
+    </div>
+
+  </div><!-- /adm-main -->
+</div><!-- /adminPanel -->
+
+
+<!-- ══════════════════════════════
+  MODAL: LOGIN ADMIN
+══════════════════════════════ -->
+<div class="overlay" id="loginOverlay">
+  <div class="modal login-modal">
+    <div class="login-head">
+      <div class="brand-icon"><i class="fas fa-store-alt"></i></div>
+      <h2>Panel Admin</h2>
+      <p>Masukkan kata sandi untuk melanjutkan</p>
+    </div>
+    <div class="fg"><label>Kata Sandi</label>
+      <div style="position:relative">
+        <input type="password" id="loginPass" placeholder="Masukkan password..." onkeypress="if(event.key==='Enter')loginAdmin()"/>
+        <button type="button" class="eye-btn" onclick="togglePass()"><i class="fas fa-eye" id="eyeIcon"></i></button>
+      </div>
+    </div>
+    <div id="loginErr" class="login-err" style="display:none"><i class="fas fa-circle-xmark"></i> Kata sandi salah!</div>
+    <button class="btn-primary full mt12" onclick="loginAdmin()"><i class="fas fa-unlock"></i> Masuk</button>
+    <button class="btn-outline full mt6" onclick="closeModal('loginOverlay')">Batal</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+  MODAL: TAMBAH/EDIT PRODUK
+══════════════════════════════ -->
+<div class="overlay" id="produkOverlay">
+  <div class="modal produk-modal">
+    <div class="modal-head">
+      <h3 id="produkModalTitle">Tambah Produk</h3>
+      <button class="modal-close" onclick="closeModal('produkOverlay')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="pId"/>
+      <!-- Foto Produk -->
+      <div class="foto-upload-area">
+        <div class="foto-preview" id="fotoPreview">
+          <img id="fotoPreviewImg" src="" alt="" style="display:none"/>
+          <div id="fotoPreviewPlaceholder"><i class="fas fa-image"></i><span>Preview Foto</span></div>
+        </div>
+        <div class="foto-upload-info">
+          <label>Nama File Foto Produk</label>
+          <input type="text" id="pFoto" placeholder="contoh: beras-premium.jpg" oninput="previewFoto()"/>
+          <small>Simpan foto di folder <strong>images/produk/</strong> lalu tulis nama filenya di sini</small>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="fg"><label>Nama Produk *</label><input type="text" id="pNamaProduk" placeholder="Contoh: Beras Premium 5kg"/></div>
+        <div class="fg"><label>Kategori *</label>
+          <select id="pKategori">
+            <option value="">-- Pilih Kategori --</option>
+            <option>Beras & Gandum</option><option>Minyak & Lemak</option><option>Gula & Garam</option>
+            <option>Minuman</option><option>Snack & Makanan</option><option>Sabun & Detergen</option><option>Lainnya</option>
+          </select>
+        </div>
+        <div class="fg"><label>Harga Beli (Rp) *</label><input type="number" id="pHargaBeli" placeholder="0"/></div>
+        <div class="fg"><label>Harga Jual (Rp) *</label><input type="number" id="pHargaJual" placeholder="0"/></div>
+        <div class="fg"><label>Stok *</label><input type="number" id="pStok" placeholder="0"/></div>
+        <div class="fg"><label>Stok Minimum</label><input type="number" id="pStokMin" placeholder="5"/></div>
+        <div class="fg"><label>Satuan</label><input type="text" id="pSatuan" placeholder="pcs / kg / liter / pak"/></div>
+        <div class="fg"><label>Deskripsi Singkat</label><input type="text" id="pDesk" placeholder="Opsional"/></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-outline" onclick="closeModal('produkOverlay')">Batal</button>
+      <button class="btn-primary" onclick="simpanProduk()"><i class="fas fa-save"></i> Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+  MODAL: DETAIL TRANSAKSI
+══════════════════════════════ -->
+<div class="overlay" id="detailOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3>Detail Transaksi</h3><button class="modal-close" onclick="closeModal('detailOverlay')"><i class="fas fa-xmark"></i></button></div>
+    <div class="modal-body" id="detailBody"></div>
+    <div class="modal-foot"><button class="btn-primary" onclick="closeModal('detailOverlay')">Tutup</button></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
