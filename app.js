@@ -142,7 +142,7 @@ function renderProdukPublik() {
         ? `<span class="prod-stok-tag stok-tipis">Hampir Habis</span>`
         : `<span class="prod-stok-tag stok-ada">Tersedia</span>`;
         
-    const imgSrc = p.foto ? `images/produk/${esc(p.foto)}` : '';
+    const imgSrc = p.foto || '';
 
     return `
     <div class="prod-card">
@@ -358,7 +358,7 @@ function renderAdmProduk() {
       : p.stok <= p.stokMin
         ? `<span class="badge b-warn">Menipis</span>`
         : `<span class="badge b-ok">Tersedia</span>`;
-    const imgSrc = p.foto ? `images/produk/${esc(p.foto)}` : '';
+    const imgSrc = p.foto || '';
     return `
     <tr>
       <td>${i+1}</td>
@@ -391,10 +391,11 @@ function renderAdmProduk() {
 function openProdukModal() {
   editProdukId = null;
   document.getElementById('produkModalTitle').textContent = 'Tambah Produk';
-  ['pId','pNamaProduk','pKategori','pHargaBeli','pHargaJual','pStok','pStokMin','pSatuan','pDesk','pFoto'].forEach(id => {
+  ['pId','pNamaProduk','pKategori','pHargaBeli','pHargaJual','pStok','pStokMin','pSatuan','pDesk'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
+  document.getElementById('pFotoFile').value = '';
   resetFotoPreview();
   openModal('produkOverlay');
 }
@@ -413,8 +414,24 @@ function editProduk(id) {
   document.getElementById('pStokMin').value     = p.stokMin || 5;
   document.getElementById('pSatuan').value      = p.satuan || '';
   document.getElementById('pDesk').value        = p.deskripsi || '';
-  document.getElementById('pFoto').value        = p.foto || '';
-  previewFoto();
+  document.getElementById('pFotoFile').value    = '';
+
+  // Load foto yang sudah tersimpan (Base64) ke preview
+  if (p.foto) {
+    _fotoBase64Baru = null; // belum ada perubahan foto baru
+    const img = document.getElementById('fotoPreviewImg');
+    const ph  = document.getElementById('fotoPreviewPlaceholder');
+    img.src = p.foto; // foto sudah Base64 atau URL
+    img.style.display = 'block';
+    ph.style.display  = 'none';
+    document.getElementById('fotoNamaFile').textContent = 'Foto tersimpan (klik "Pilih Foto" untuk ganti)';
+    document.getElementById('btnHapusFoto').style.display = 'block';
+    // Simpan foto lama ke _fotoBase64Baru supaya tidak hilang jika user tidak upload baru
+    _fotoBase64Baru = p.foto;
+  } else {
+    resetFotoPreview();
+  }
+
   openModal('produkOverlay');
 }
 
@@ -427,7 +444,8 @@ function simpanProduk() {
   const stokMin   = parseInt(document.getElementById('pStokMin').value) || 5;
   const satuan    = document.getElementById('pSatuan').value.trim() || 'pcs';
   const deskripsi = document.getElementById('pDesk').value.trim();
-  const foto      = document.getElementById('pFoto').value.trim();
+  // Foto diambil dari variabel Base64, bukan dari input teks
+  const foto      = _fotoBase64Baru || '';
 
   if (!nama)                       return toast('Nama produk wajib diisi!', 'error');
   if (!kategori)                   return toast('Pilih kategori terlebih dahulu!', 'error');
@@ -462,21 +480,61 @@ function hapusProduk(id) {
   toast('Produk dihapus.', 'warn');
 }
 
-function previewFoto() {
-  const nama = document.getElementById('pFoto').value.trim();
-  const img  = document.getElementById('fotoPreviewImg');
-  const ph   = document.getElementById('fotoPreviewPlaceholder');
-  if (nama) {
-    img.src = 'images/produk/' + nama;
+// Variabel sementara untuk menyimpan Base64 foto yang baru dipilih
+let _fotoBase64Baru = null;
+
+function handleFotoUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  // Validasi ukuran file (max 2MB)
+  if (file.size > 2 * 1024 * 1024) {
+    toast('Ukuran foto maksimal 2MB!', 'error');
+    input.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    _fotoBase64Baru = e.target.result; // simpan sementara, Base64 penuh
+    const img = document.getElementById('fotoPreviewImg');
+    const ph  = document.getElementById('fotoPreviewPlaceholder');
+    img.src = _fotoBase64Baru;
     img.style.display = 'block';
     ph.style.display  = 'none';
-    img.onerror = () => { img.style.display='none'; ph.style.display='flex'; };
-  } else { resetFotoPreview(); }
+
+    document.getElementById('fotoNamaFile').textContent = file.name;
+    document.getElementById('btnHapusFoto').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+function hapusFotoProduk() {
+  _fotoBase64Baru = null;
+  document.getElementById('pFotoFile').value = '';
+  resetFotoPreview();
+}
+
+function previewFoto() {
+  // Fungsi ini sekarang digunakan saat edit produk yang sudah punya foto Base64
+  const img = document.getElementById('fotoPreviewImg');
+  const ph  = document.getElementById('fotoPreviewPlaceholder');
+  if (_fotoBase64Baru) {
+    img.src = _fotoBase64Baru;
+    img.style.display = 'block';
+    ph.style.display  = 'none';
+    document.getElementById('btnHapusFoto').style.display = 'block';
+  } else {
+    resetFotoPreview();
+  }
 }
 
 function resetFotoPreview() {
+  _fotoBase64Baru = null;
   document.getElementById('fotoPreviewImg').style.display  = 'none';
   document.getElementById('fotoPreviewPlaceholder').style.display = 'flex';
+  document.getElementById('fotoNamaFile').textContent = 'Belum ada foto dipilih';
+  document.getElementById('btnHapusFoto').style.display = 'none';
 }
 
 /* ════════════════════════════════
@@ -495,7 +553,7 @@ function renderKasirProduk() {
 
   grid.innerHTML = produk.map(p => {
     const habis  = p.stok === 0;
-    const imgSrc = p.foto ? `images/produk/${esc(p.foto)}` : '';
+    const imgSrc = p.foto || '';
     return `
     <div class="kasir-card ${habis ? 'habis' : ''}" onclick="${habis ? '' : `addToKeranjang('${p.id}')`}" title="${habis ? 'Stok habis' : p.nama}">
       <div class="kasir-card-img">
