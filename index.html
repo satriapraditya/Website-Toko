@@ -463,14 +463,20 @@
       <input type="hidden" id="pId"/>
       <!-- Foto Produk -->
       <div class="foto-upload-area">
-        <div class="foto-preview" id="fotoPreview">
+        <div class="foto-preview" id="fotoPreview" onclick="document.getElementById('pFotoFile').click()" style="cursor:pointer" title="Klik untuk pilih foto">
           <img id="fotoPreviewImg" src="" alt="" style="display:none"/>
           <div id="fotoPreviewPlaceholder"><i class="fas fa-image"></i><span>Preview Foto</span></div>
         </div>
         <div class="foto-upload-info">
-          <label>Nama File Foto Produk</label>
-          <input type="text" id="pFoto" placeholder="contoh: beras-premium.jpg" oninput="previewFoto()"/>
-          <small>Simpan foto di folder <strong>images/produk/</strong> lalu tulis nama filenya di sini</small>
+          <label>Upload Foto Produk</label>
+          <input type="file" id="pFotoFile" accept="image/*" onchange="handleFotoUpload(this)" style="display:none"/>
+          <button type="button" class="btn-outline" style="width:100%;margin-bottom:6px" onclick="document.getElementById('pFotoFile').click()">
+            <i class="fas fa-upload"></i> Pilih Foto dari Perangkat
+          </button>
+          <small id="fotoNamaFile" style="color:var(--gray)">Belum ada foto dipilih</small>
+          <button type="button" id="btnHapusFoto" onclick="hapusFotoProduk()" style="display:none;margin-top:6px;width:100%;background:transparent;border:1px solid var(--danger,#ef4444);color:var(--danger,#ef4444);border-radius:8px;padding:6px;cursor:pointer;font-size:.8rem">
+            <i class="fas fa-trash"></i> Hapus Foto
+          </button>
         </div>
       </div>
       <div class="form-grid">
