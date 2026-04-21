@@ -51,27 +51,53 @@ const DB = {
    SEED DATA
 ════════════════════════════════ */
 function seedData() {
-  if (DB.getProduk().length > 0) return;
-  const produkAwal = [
-    { id:'P001', nama:'Beras Premium 5kg',       kategori:'Beras & Gandum',  hargaBeli:65000, hargaJual:72000,  stok:50, stokMin:10, satuan:'karung', foto:'', deskripsi:'Beras kualitas premium, pulen dan harum' },
-    { id:'P002', nama:'Beras Medium 5kg',         kategori:'Beras & Gandum',  hargaBeli:55000, hargaJual:62000,  stok:40, stokMin:10, satuan:'karung', foto:'', deskripsi:'Beras medium, cocok untuk kebutuhan harian' },
-    { id:'P003', nama:'Minyak Goreng 1L',         kategori:'Minyak & Lemak',  hargaBeli:14000, hargaJual:17000,  stok:60, stokMin:15, satuan:'botol',  foto:'', deskripsi:'Minyak goreng jernih, cocok untuk memasak' },
-    { id:'P004', nama:'Minyak Goreng 2L',         kategori:'Minyak & Lemak',  hargaBeli:27000, hargaJual:31000,  stok:4,  stokMin:10, satuan:'botol',  foto:'', deskripsi:'Ekonomis untuk keluarga besar' },
-    { id:'P005', nama:'Gula Pasir 1kg',           kategori:'Gula & Garam',    hargaBeli:13000, hargaJual:16000,  stok:80, stokMin:20, satuan:'kg',     foto:'', deskripsi:'Gula pasir murni, manis alami' },
-    { id:'P006', nama:'Garam Halus 250g',         kategori:'Gula & Garam',    hargaBeli:2500,  hargaJual:3500,   stok:3,  stokMin:10, satuan:'bks',    foto:'', deskripsi:'Garam beryodium halus' },
-    { id:'P007', nama:'Teh Celup Sariwangi',      kategori:'Minuman',         hargaBeli:7000,  hargaJual:9500,   stok:45, stokMin:10, satuan:'pak',    foto:'', deskripsi:'Teh celup original, aromanya khas' },
-    { id:'P008', nama:'Kopi Kapal Api',           kategori:'Minuman',         hargaBeli:8500,  hargaJual:11000,  stok:30, stokMin:10, satuan:'pak',    foto:'', deskripsi:'Kopi tubruk pilihan para penikmati kopi' },
-    { id:'P009', nama:'Indomie Goreng',           kategori:'Snack & Makanan', hargaBeli:2700,  hargaJual:3500,   stok:120,stokMin:24, satuan:'pcs',    foto:'', deskripsi:'Mi goreng instan favorit keluarga' },
-    { id:'P010', nama:'Indomie Soto',             kategori:'Snack & Makanan', hargaBeli:2700,  hargaJual:3500,   stok:90, stokMin:24, satuan:'pcs',    foto:'', deskripsi:'Mi soto dengan kuah gurih segar' },
-    { id:'P011', nama:'Sabun Mandi Lifebuoy',     kategori:'Sabun & Detergen',hargaBeli:4500,  hargaJual:6000,   stok:2,  stokMin:10, satuan:'pcs',    foto:'', deskripsi:'Sabun mandi antibakteri' },
-    { id:'P012', nama:'Detergen Rinso 800g',      kategori:'Sabun & Detergen',hargaBeli:18000, hargaJual:22000,  stok:20, stokMin:8,  satuan:'bks',    foto:'', deskripsi:'Detergen bubuk bersih sempurna' },
-    { id:'P013', nama:'Susu Kental Manis',        kategori:'Minuman',         hargaBeli:11000, hargaJual:14500,  stok:24, stokMin:6,  satuan:'kaleng', foto:'', deskripsi:'Susu kental manis creamy' },
-    { id:'P014', nama:'Tepung Terigu Segitiga',   kategori:'Beras & Gandum',  hargaBeli:10000, hargaJual:13000,  stok:35, stokMin:10, satuan:'kg',     foto:'', deskripsi:'Tepung serbaguna untuk masak & kue' },
-    { id:'P015', nama:'Kecap Manis Bango',        kategori:'Lainnya',         hargaBeli:12000, hargaJual:15500,  stok:18, stokMin:6,  satuan:'btl',    foto:'', deskripsi:'Kecap manis kental pilihan dapur' },
-    { id:'P016', nama:'Mie Sedaap Goreng',        kategori:'Snack & Makanan', hargaBeli:2800,  hargaJual:3500,   stok:80, stokMin:20, satuan:'pcs',    foto:'', deskripsi:'Mie goreng dengan bumbu sedap' },
+  // ═══════════════════════════════════════════════════════════════
+  // CARA MENAMBAH / MENGGANTI FOTO PRODUK:
+  //   1. Simpan file foto ke folder:  images/produk/
+  //   2. Tulis nama filenya di kolom  foto:'...'  di bawah
+  //      Contoh: foto:'beras premium 5kg.webp'
+  //   3. Simpan app.js lalu refresh browser → foto langsung muncul
+  //
+  // Foto TIDAK akan pernah hilang karena selalu dibaca dari sini,
+  // bukan dari localStorage. Stok & harga tetap aman di localStorage.
+  // ═══════════════════════════════════════════════════════════════
+
+  const PRODUK_MASTER = [
+    { id:'P001', nama:'Beras Premium 5kg',     kategori:'Beras & Gandum',  hargaBeli:65000, hargaJual:72000,  stok:50,  stokMin:10, satuan:'karung', foto:'beras premium 5kg.jpg',   deskripsi:'Beras kualitas premium, pulen dan harum' },
+    { id:'P002', nama:'Beras Medium 5kg',       kategori:'Beras & Gandum',  hargaBeli:55000, hargaJual:62000,  stok:40,  stokMin:10, satuan:'karung', foto:'beras medium 5kg.jpg',     deskripsi:'Beras medium, cocok untuk kebutuhan harian' },
+    { id:'P003', nama:'Minyak Goreng 1L',       kategori:'Minyak & Lemak',  hargaBeli:14000, hargaJual:17000,  stok:60,  stokMin:15, satuan:'botol',  foto:'minyak goreng 1L.jpg',            deskripsi:'Minyak goreng jernih, cocok untuk memasak' },
+    { id:'P004', nama:'Minyak Goreng 2L',       kategori:'Minyak & Lemak',  hargaBeli:27000, hargaJual:31000,  stok:4,   stokMin:10, satuan:'botol',  foto:'minyak goreng 2L.jpg',            deskripsi:'Ekonomis untuk keluarga besar' },
+    { id:'P005', nama:'Gula Pasir 1kg',         kategori:'Gula & Garam',    hargaBeli:13000, hargaJual:16000,  stok:80,  stokMin:20, satuan:'kg',     foto:'gula pasir 1kg.jpg',           deskripsi:'Gula pasir murni, manis alami' },
+    { id:'P006', nama:'Garam Halus 250g',       kategori:'Gula & Garam',    hargaBeli:2500,  hargaJual:3500,   stok:3,   stokMin:10, satuan:'bks',    foto:'garam halus 250g.webp',          deskripsi:'Garam beryodium halus' },
+    { id:'P007', nama:'Teh Celup Sariwangi',    kategori:'Minuman',         hargaBeli:7000,  hargaJual:9500,   stok:45,  stokMin:10, satuan:'pak',    foto:'teh celup.jpg',        deskripsi:'Teh celup original, aromanya khas' },
+    { id:'P008', nama:'Kopi Kapal Api',         kategori:'Minuman',         hargaBeli:8500,  hargaJual:11000,  stok:30,  stokMin:10, satuan:'pak',    foto:'kopi kapal api 60g.jpg',       deskripsi:'Kopi tubruk pilihan para penikmati kopi' },
+    { id:'P009', nama:'Indomie Goreng',         kategori:'Snack & Makanan', hargaBeli:2700,  hargaJual:3500,   stok:120, stokMin:24, satuan:'pcs',    foto:'indomie goreng.png',       deskripsi:'Mi goreng instan favorit keluarga' },
+    { id:'P010', nama:'Indomie Soto',           kategori:'Snack & Makanan', hargaBeli:2700,  hargaJual:3500,   stok:90,  stokMin:24, satuan:'pcs',    foto:'indomie soto.jpg',         deskripsi:'Mi soto dengan kuah gurih segar' },
+    { id:'P011', nama:'Sabun Mandi Lifebuoy',   kategori:'Sabun & Detergen',hargaBeli:4500,  hargaJual:6000,   stok:2,   stokMin:10, satuan:'pcs',    foto:'sabun lifebuoy batang besar.jpg',       deskripsi:'Sabun mandi antibakteri' },
+    { id:'P012', nama:'Detergen Rinso 800g',    kategori:'Sabun & Detergen',hargaBeli:18000, hargaJual:22000,  stok:20,  stokMin:8,  satuan:'bks',    foto:'rinso 800g.jpg',       deskripsi:'Detergen bubuk bersih sempurna' },
+    { id:'P013', nama:'Susu Kental Manis',      kategori:'Minuman',         hargaBeli:11000, hargaJual:14500,  stok:24,  stokMin:6,  satuan:'kaleng', foto:'susu kaleng.jpg',    deskripsi:'Susu kental manis creamy' },
+    { id:'P014', nama:'Tepung Terigu Segitiga', kategori:'Beras & Gandum',  hargaBeli:10000, hargaJual:13000,  stok:35,  stokMin:10, satuan:'kg',     foto:'segitiga biru 1kg.jpg',      deskripsi:'Tepung serbaguna untuk masak & kue' },
+    { id:'P015', nama:'Kecap Manis Bango',      kategori:'Lainnya',         hargaBeli:12000, hargaJual:15500,  stok:18,  stokMin:6,  satuan:'btl',    foto:'kecap botol.png',          deskripsi:'Kecap manis kental pilihan dapur' },
+    { id:'P016', nama:'Mie Sedaap Goreng',      kategori:'Snack & Makanan', hargaBeli:2800,  hargaJual:3500,   stok:80,  stokMin:20, satuan:'pcs',    foto:'sedaap goreng.jpg',           deskripsi:'Mie goreng dengan bumbu sedap' },
   ];
-  DB.setProduk(produkAwal);
-  localStorage.setItem('storo_produk_ctr', 16);
+
+  // Buat peta: { 'P001': 'beras premium 5kg.webp', ... }
+  const fotoMap = {};
+  PRODUK_MASTER.forEach(p => { fotoMap[p.id] = p.foto; });
+
+  if (DB.getProduk().length === 0) {
+    // Pertama kali buka: simpan semua produk
+    DB.setProduk(PRODUK_MASTER);
+    localStorage.setItem('storo_produk_ctr', PRODUK_MASTER.length);
+  } else {
+    // Sudah ada data: SELALU timpa kolom foto dari kode di atas
+    // (stok, harga, dll tetap dari localStorage — tidak ditimpa)
+    const synced = DB.getProduk().map(p => ({
+      ...p,
+      foto: fotoMap.hasOwnProperty(p.id) ? fotoMap[p.id] : p.foto
+    }));
+    DB.setProduk(synced);
+  }
 }
 
 /* ════════════════════════════════
@@ -142,7 +168,7 @@ function renderProdukPublik() {
         ? `<span class="prod-stok-tag stok-tipis">Hampir Habis</span>`
         : `<span class="prod-stok-tag stok-ada">Tersedia</span>`;
         
-    const imgSrc = p.foto || '';
+    const imgSrc = p.foto ? `images/produk/${esc(p.foto)}` : '';
 
     return `
     <div class="prod-card">
@@ -358,7 +384,7 @@ function renderAdmProduk() {
       : p.stok <= p.stokMin
         ? `<span class="badge b-warn">Menipis</span>`
         : `<span class="badge b-ok">Tersedia</span>`;
-    const imgSrc = p.foto || '';
+    const imgSrc = p.foto ? `images/produk/${esc(p.foto)}` : '';
     return `
     <tr>
       <td>${i+1}</td>
@@ -395,8 +421,6 @@ function openProdukModal() {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
-  document.getElementById('pFotoFile').value = '';
-  resetFotoPreview();
   openModal('produkOverlay');
 }
 
@@ -414,24 +438,6 @@ function editProduk(id) {
   document.getElementById('pStokMin').value     = p.stokMin || 5;
   document.getElementById('pSatuan').value      = p.satuan || '';
   document.getElementById('pDesk').value        = p.deskripsi || '';
-  document.getElementById('pFotoFile').value    = '';
-
-  // Load foto yang sudah tersimpan (Base64) ke preview
-  if (p.foto) {
-    _fotoBase64Baru = null; // belum ada perubahan foto baru
-    const img = document.getElementById('fotoPreviewImg');
-    const ph  = document.getElementById('fotoPreviewPlaceholder');
-    img.src = p.foto; // foto sudah Base64 atau URL
-    img.style.display = 'block';
-    ph.style.display  = 'none';
-    document.getElementById('fotoNamaFile').textContent = 'Foto tersimpan (klik "Pilih Foto" untuk ganti)';
-    document.getElementById('btnHapusFoto').style.display = 'block';
-    // Simpan foto lama ke _fotoBase64Baru supaya tidak hilang jika user tidak upload baru
-    _fotoBase64Baru = p.foto;
-  } else {
-    resetFotoPreview();
-  }
-
   openModal('produkOverlay');
 }
 
@@ -444,24 +450,25 @@ function simpanProduk() {
   const stokMin   = parseInt(document.getElementById('pStokMin').value) || 5;
   const satuan    = document.getElementById('pSatuan').value.trim() || 'pcs';
   const deskripsi = document.getElementById('pDesk').value.trim();
-  // Foto diambil dari variabel Base64, bukan dari input teks
-  const foto      = _fotoBase64Baru || '';
 
-  if (!nama)                       return toast('Nama produk wajib diisi!', 'error');
-  if (!kategori)                   return toast('Pilih kategori terlebih dahulu!', 'error');
+  if (!nama)                         return toast('Nama produk wajib diisi!', 'error');
+  if (!kategori)                     return toast('Pilih kategori terlebih dahulu!', 'error');
   if (isNaN(hargaBeli)||hargaBeli<0) return toast('Harga beli tidak valid!', 'error');
   if (isNaN(hargaJual)||hargaJual<0) return toast('Harga jual tidak valid!', 'error');
-  if (isNaN(stok)||stok<0)          return toast('Stok tidak valid!', 'error');
-  if (hargaJual < hargaBeli)        return toast('Peringatan: harga jual lebih kecil dari harga beli!', 'warn');
+  if (isNaN(stok)||stok<0)           return toast('Stok tidak valid!', 'error');
+  if (hargaJual < hargaBeli)         return toast('Peringatan: harga jual lebih kecil dari harga beli!', 'warn');
 
   if (editProdukId) {
-    DB.updateProduk(editProdukId, { nama, kategori, hargaBeli, hargaJual, stok, stokMin, satuan, deskripsi, foto });
+    // Saat edit: pertahankan foto yang sudah ada, jangan ditimpa
+    const existing = DB.findProduk(editProdukId);
+    DB.updateProduk(editProdukId, { nama, kategori, hargaBeli, hargaJual, stok, stokMin, satuan, deskripsi, foto: existing?.foto || '' });
     toast('Produk berhasil diperbarui ✓', 'success');
   } else {
+    // Produk baru: foto kosong dulu, nanti tambahkan di PRODUK_MASTER
     const n  = DB.nextId('storo_produk_ctr');
     const id = 'P' + String(n).padStart(3, '0');
-    DB.addProduk({ id, nama, kategori, hargaBeli, hargaJual, stok, stokMin, satuan, deskripsi, foto });
-    toast('Produk berhasil ditambahkan ✓', 'success');
+    DB.addProduk({ id, nama, kategori, hargaBeli, hargaJual, stok, stokMin, satuan, deskripsi, foto: '' });
+    toast(`Produk berhasil ditambahkan (ID: ${id}) ✓\nTambahkan foto di PRODUK_MASTER app.js dengan id:'${id}'`, 'success');
   }
 
   closeModal('produkOverlay');
@@ -480,62 +487,7 @@ function hapusProduk(id) {
   toast('Produk dihapus.', 'warn');
 }
 
-// Variabel sementara untuk menyimpan Base64 foto yang baru dipilih
-let _fotoBase64Baru = null;
-
-function handleFotoUpload(input) {
-  const file = input.files[0];
-  if (!file) return;
-
-  // Validasi ukuran file (max 2MB)
-  if (file.size > 2 * 1024 * 1024) {
-    toast('Ukuran foto maksimal 2MB!', 'error');
-    input.value = '';
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    _fotoBase64Baru = e.target.result; // simpan sementara, Base64 penuh
-    const img = document.getElementById('fotoPreviewImg');
-    const ph  = document.getElementById('fotoPreviewPlaceholder');
-    img.src = _fotoBase64Baru;
-    img.style.display = 'block';
-    ph.style.display  = 'none';
-
-    document.getElementById('fotoNamaFile').textContent = file.name;
-    document.getElementById('btnHapusFoto').style.display = 'block';
-  };
-  reader.readAsDataURL(file);
-}
-
-function hapusFotoProduk() {
-  _fotoBase64Baru = null;
-  document.getElementById('pFotoFile').value = '';
-  resetFotoPreview();
-}
-
-function previewFoto() {
-  // Fungsi ini sekarang digunakan saat edit produk yang sudah punya foto Base64
-  const img = document.getElementById('fotoPreviewImg');
-  const ph  = document.getElementById('fotoPreviewPlaceholder');
-  if (_fotoBase64Baru) {
-    img.src = _fotoBase64Baru;
-    img.style.display = 'block';
-    ph.style.display  = 'none';
-    document.getElementById('btnHapusFoto').style.display = 'block';
-  } else {
-    resetFotoPreview();
-  }
-}
-
-function resetFotoPreview() {
-  _fotoBase64Baru = null;
-  document.getElementById('fotoPreviewImg').style.display  = 'none';
-  document.getElementById('fotoPreviewPlaceholder').style.display = 'flex';
-  document.getElementById('fotoNamaFile').textContent = 'Belum ada foto dipilih';
-  document.getElementById('btnHapusFoto').style.display = 'none';
-}
+/* pFoto tidak lagi ada di form — foto dikelola dari PRODUK_MASTER di seedData() */
 
 /* ════════════════════════════════
    KASIR / TRANSAKSI
@@ -553,7 +505,7 @@ function renderKasirProduk() {
 
   grid.innerHTML = produk.map(p => {
     const habis  = p.stok === 0;
-    const imgSrc = p.foto || '';
+    const imgSrc = p.foto ? `images/produk/${esc(p.foto)}` : '';
     return `
     <div class="kasir-card ${habis ? 'habis' : ''}" onclick="${habis ? '' : `addToKeranjang('${p.id}')`}" title="${habis ? 'Stok habis' : p.nama}">
       <div class="kasir-card-img">
